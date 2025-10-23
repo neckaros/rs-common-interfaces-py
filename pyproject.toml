@@ -1,6 +1,6 @@
 [project]
 name = "rs-common-interfaces-py"
-version = "0.1.0"
+version = "0.1.3"
 description = "Common interface types for video processing and request handling"
 readme = "README.md"
 requires-python = ">=3.11"

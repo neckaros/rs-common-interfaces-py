@@ -4,8 +4,8 @@ import re
 
 from dataclasses import dataclass, field
 
-from .request import RsRequest
-
+from pydantic import BaseModel, ConfigDict, Field
+from pydantic.alias_generators import to_camel
 
 def text_contains(text: str, contains: str) -> bool:
     formatted = f".{contains}."
@@ -298,27 +298,17 @@ class VideoTextOverlay:
     end: Optional[int] = None
 
 
-@dataclass
-class VideoConvertRequest:
-    id: str
-    format: RsVideoFormat  # Assuming RsVideoFormat is a string or enum; adjust as needed
-    codec: Optional[RsVideoCodec] = None  # Assuming RsVideoCodec is a string or enum; adjust as needed
-    crf: Optional[int] = None
-    no_audio: bool = False
-    width: Optional[str] = None
-    height: Optional[str] = None
-    framerate: Optional[int] = None
-    crop_width: Optional[int] = None
-    crop_height: Optional[int] = None
-    aspect_ratio: Optional[str] = None
-    aspect_ratio_alignment: Optional[VideoAlignment] = None
-    overlay: Optional[VideoOverlay] = None
-    texts: Optional[List[VideoTextOverlay]] = None
-    intervals: List[VideoConvertInterval] = field(default_factory=list)
 
 
-@dataclass
-class VideoConvertJob:
-    request: VideoConvertRequest
-    source: RsRequest
-
+class RsVideoCapabilities(BaseModel):
+    model_config = ConfigDict(
+        alias_generator=to_camel,
+        populate_by_name=True
+    )
+    
+    video_codecs: List[RsVideoCodec] = Field(default_factory=list)
+    video_codecs_hw: List[RsVideoCodec] = Field(default_factory=list)
+    audio_codecs: List[RsAudio] = Field(default_factory=list)
+    video_formats: List[RsVideoFormat] = Field(default_factory=list)
+    max_duration: Optional[int] = None  
+    max_concurrent_jobs: Optional[int] = None  

@@ -22,9 +22,10 @@ from .video import (
     VideoConvertInterval,
     VideoOverlay,
     VideoTextOverlay,
-    VideoConvertRequest,
-    VideoConvertJob,
+    
 )
+
+from .conversion import (VideoConvertJob, VideoConvertRequest)
 
 __all__ = [
     # Request types
@@ -45,8 +46,9 @@ __all__ = [
     "VideoConvertInterval",
     "VideoOverlay",
     "VideoTextOverlay",
+    # Convert types
     "VideoConvertRequest",
     "VideoConvertJob",
 ]
 
-__version__ = "0.1.0"
+__version__ = "0.1.3"
