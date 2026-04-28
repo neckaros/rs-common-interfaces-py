@@ -101,12 +101,12 @@ class RsResolution(str, Enum):
 
 
 class RsVideoCodec(str, Enum):
-    H265 = "h265"
-    H264 = "h264"
-    AV1 = "av1"
-    XVID = "xvid"
+    H265 = "H265"
+    H264 = "H264"
+    AV1 = "AV1"
+    XVID = "XVID"
     # Note: Custom(String) variant omitted; handle as str for custom codecs
-    UNKNOWN = "unknown"
+    UNKNOWN = "Unknown"
 
     @classmethod
     def default(cls) -> 'RsVideoCodec':
@@ -312,3 +312,32 @@ class RsVideoCapabilities(BaseModel):
     video_formats: List[RsVideoFormat] = Field(default_factory=list)
     max_duration: Optional[int] = None  
     max_concurrent_jobs: Optional[int] = None  
+
+class RsVideoTranscodeStatus(str, Enum):
+    PENDING = "pending"
+    DOWNLOADING = "downloading"
+    QUEUED = "queued"
+    PROCESSING = "processing"
+    COMPLETED = "completed"
+    FAILED = "failed"
+    CANCELED = "canceled"
+
+    @classmethod
+    def default(cls) -> "RsVideoTranscodeStatus":
+        return cls.PENDING
+
+
+class RsVideoTranscodeJobStatus(BaseModel):
+    id: str = Field(default="", alias="id")
+    status: RsVideoTranscodeStatus = Field(default=RsVideoTranscodeStatus.default(), alias="status")
+    progress: float = Field(default=0.0, alias="progress")
+    created_at: int = Field(default=0, alias="createdAt")
+    deleted_at: Optional[int] = Field(default=None, alias="deletedAt")
+    
+    path: Optional[str] = Field(default=None, alias="path")
+    filename: Optional[str] = Field(default=None, alias="filename")
+
+    class Config:
+        populate_by_name = True
+        from_attributes = True
+        arbitrary_types_allowed = True

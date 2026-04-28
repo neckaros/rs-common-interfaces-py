@@ -22,6 +22,8 @@ from .video import (
     VideoConvertInterval,
     VideoOverlay,
     VideoTextOverlay,
+    RsVideoTranscodeJobStatus,
+    RsVideoTranscodeStatus,
     
 )
 
@@ -49,6 +51,8 @@ __all__ = [
     # Convert types
     "VideoConvertRequest",
     "VideoConvertJob",
+    "RsVideoTranscodeStatus",
+    "RsVideoTranscodeJobStatus",
 ]
 
-__version__ = "0.1.3"
+__version__ = "0.1.7"
