@@ -238,7 +238,7 @@ wheels = [
 
 [[package]]
 name = "rs-common-interfaces-py"
-version = "0.1.2"
+version = "0.1.8"
 source = { editable = "." }
 dependencies = [
     { name = "pydantic" },

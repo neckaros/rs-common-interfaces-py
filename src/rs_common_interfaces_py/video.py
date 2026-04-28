@@ -336,6 +336,7 @@ class RsVideoTranscodeJobStatus(BaseModel):
     
     path: Optional[str] = Field(default=None, alias="path")
     filename: Optional[str] = Field(default=None, alias="filename")
+    error: Optional[str] = Field(default=None, alias="error")
 
     class Config:
         populate_by_name = True
